@@ -2,16 +2,25 @@ package com.example.task.Services;
 
 import com.example.task.Models.Company;
 import com.example.task.Repositories.CompanyRepo;
+import com.example.task.Repositories.EmployeeRepo;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class CompanyService implements ICompanyService {
     private CompanyRepo companyRepo;
+    private EmployeeRepo employeeRepo;
+
+    public CompanyService(CompanyRepo companyRepo, EmployeeRepo employeeRepo) {
+        this.companyRepo = companyRepo;
+        this.employeeRepo = employeeRepo;
+    }
 
     @Override
     public Company getCompanyById(long id) {
-        return null;
+        return companyRepo.findById(id).get();
     }
 
     @Override
@@ -23,6 +32,8 @@ public class CompanyService implements ICompanyService {
 
     @Override
     public void deleteCompany(long id) {
+        Company company = companyRepo.findById(id).get();
+        employeeRepo.deleteAll(company.getEmployees());
         companyRepo.deleteById(id);
     }
 
