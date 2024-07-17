@@ -1,8 +1,6 @@
 package com.example.task.Models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access= AccessLevel.PUBLIC, force=true)
 public class Employee {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String firstName;
     private String lastName;

@@ -11,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor(access= AccessLevel.PUBLIC, force=true)
 public class Company {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String company_name;
     @OneToMany(cascade = CascadeType.ALL)
