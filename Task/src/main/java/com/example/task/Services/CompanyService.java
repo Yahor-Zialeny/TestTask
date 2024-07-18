@@ -1,6 +1,7 @@
 package com.example.task.Services;
 
 import com.example.task.Models.Company;
+import com.example.task.Models.Employee;
 import com.example.task.Repositories.CompanyRepo;
 import com.example.task.Repositories.EmployeeRepo;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,11 @@ public class CompanyService implements ICompanyService {
 
     @Override
     public Company getCompanyById(long id) {
-        return companyRepo.findById(id).get();
+        Company company = companyRepo.findById(id).get();
+        for(Employee employee : company.getEmployees()){
+            employee.setCompany(null);
+        }
+        return company;
     }
 
     @Override

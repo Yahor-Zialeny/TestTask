@@ -8,6 +8,7 @@ import com.example.task.Services.CompanyService;
 import org.springframework.web.bind.annotation.*;
 import com.example.task.Services.*;
 
+
 import java.util.List;
 
 @org.springframework.web.bind.annotation.RestController
@@ -29,8 +30,8 @@ public class RestController {
         return new StandardResponse(SUCCESS_STATUS, 1);
     }
     @GetMapping("/company")
-    public String getCompanyById(Long id) {
-        return ICompanyService.getCompanyById(id).toString();
+    public Company getCompanyById(Long id) {
+        return ICompanyService.getCompanyById(id);
     }
     @DeleteMapping("/company")
     public StandardResponse delete(@RequestParam long companyId){
@@ -42,9 +43,14 @@ public class RestController {
         ICompanyService.updateCompany(company);
         return new StandardResponse(SUCCESS_STATUS, CODE_SUCCESS);
     }
+    @PutMapping("/company")
+    public StandardResponse updateCompany(@RequestBody Company company) {
+        ICompanyService.updateCompany(company);
+        return new StandardResponse(SUCCESS_STATUS, CODE_SUCCESS);
+    }
     @GetMapping("/employee")
-    public List<Employee> getEmployeesByCompanyId(@RequestParam long id) {
-        return ICompanyService.getCompanyById(id).getEmployees();
+    public List<Employee> getEmployeesByCompanyId() {
+        return IEmployeeService.getAllEmployees();
     }
     @DeleteMapping("/employee")
     public StandardResponse deleteEmployee(@RequestParam long employeeId){
@@ -53,6 +59,11 @@ public class RestController {
     }
     @PostMapping("/employee")
     public StandardResponse addEmployee(@RequestBody Employee employee) {
+        IEmployeeService.updateEmployee(employee);
+        return new StandardResponse(SUCCESS_STATUS, CODE_SUCCESS);
+    }
+    @PutMapping("/employee")
+    public StandardResponse updateEmployee(@RequestBody Employee employee) {
         IEmployeeService.updateEmployee(employee);
         return new StandardResponse(SUCCESS_STATUS, CODE_SUCCESS);
     }

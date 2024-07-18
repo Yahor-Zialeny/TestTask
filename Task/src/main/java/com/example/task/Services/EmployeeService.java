@@ -26,7 +26,10 @@ public class EmployeeService implements IEmployeeService{
     @Override
     public List<Employee> getAllEmployees() {
         List<Employee> employees = new ArrayList<>();
-        employeeRepo.findAll().forEach(employees::add);
+        for (Employee employee : employeeRepo.findAll()) {
+            employee.getCompany().setEmployees(null);
+            employees.add(employee);
+        }
         return employees;
     }
 
